@@ -1,0 +1,21 @@
+﻿@model Asp.Net_MVC.Models.Dashboard.UserModel
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body">
+
+            <h4 class="mb-4 text-info">
+                <i class="fa-solid fa-user"></i> User Details
+            </h4>
+
+            <p><strong>Name:</strong> @Model.UserName</p>
+            <p><strong>Phone:</strong> @Model.Phone</p>
+            <p><strong>Status:</strong> @Model.Status</p>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+
+        </div>
+    </div>
+</div>

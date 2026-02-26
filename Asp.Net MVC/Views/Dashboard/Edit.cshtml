@@ -1,0 +1,43 @@
+﻿@model Asp.Net_MVC.Models.Dashboard.UserModel
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body">
+
+            <h4 class="mb-4 text-primary">
+                <i class="fa-solid fa-user-pen"></i> Edit User
+            </h4>
+
+            <form asp-action="Edit" method="post">
+                <input asp-for="Id" type="hidden" />
+
+                <div class="mb-3">
+                    <label>User Name</label>
+                    <input asp-for="UserName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Phone</label>
+                    <input asp-for="Phone" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Status</label>
+                    <select asp-for="Status" class="form-select">
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-save"></i> Update
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </a>
+            </form>
+
+        </div>
+    </div>
+</div>

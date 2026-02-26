@@ -1,100 +1,148 @@
-﻿@model MobileRepairShop.Models.Dashboard.DashboardViewModel
+﻿@using Asp.Net_MVC.Models.Dashboard
+@model MobileRepairShop.Models.Dashboard.DashboardViewModel
+
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "User Index";
 }
 
-<div class="mt-4">
-
-    <h2 class="fw-bold mb-4">
-        <i class="fa-solid fa-gauge-high text-primary"></i>
-        Dashboard Overview
-    </h2>
-
-    <div class="row g-4">
-
-        <div class="col-md-3">
-            <div class="card shadow border-0 rounded-4 bg-primary text-white">
-                <div class="card-body d-flex justify-content-between">
-                    <div>
-                        <h6>Total Customers</h6>
-                        <h3>@Model.TotalCustomers</h3>
-                    </div>
-                    <i class="fa-solid fa-users fa-2x"></i>
-                </div>
+<!-- DASHBOARD CARDS -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card card-dashboard shadow bg-primary text-white">
+            <div class="card-body">
+                <h6>Total Customers</h6>
+                <h3>@Model.TotalCustomers</h3>
+                <i class="fa-solid fa-users fa-2x float-end"></i>
             </div>
         </div>
-
-        <div class="col-md-3">
-            <div class="card shadow border-0 rounded-4 bg-warning text-dark">
-                <div class="card-body d-flex justify-content-between">
-                    <div>
-                        <h6>Devices In Repair</h6>
-                        <h3>@Model.DevicesInRepair</h3>
-                    </div>
-                    <i class="fa-solid fa-screwdriver-wrench fa-2x"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card shadow border-0 rounded-4 bg-success text-white">
-                <div class="card-body d-flex justify-content-between">
-                    <div>
-                        <h6>Completed Repairs</h6>
-                        <h3>@Model.CompletedRepairs</h3>
-                    </div>
-                    <i class="fa-solid fa-circle-check fa-2x"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card shadow border-0 rounded-4 bg-danger text-white">
-                <div class="card-body d-flex justify-content-between">
-                    <div>
-                        <h6>Total Revenue</h6>
-                        <h3>Rs. @Model.TotalRevenue</h3>
-                    </div>
-                    <i class="fa-solid fa-rupee-sign fa-2x"></i>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <div class="card shadow border-0 rounded-4 mt-5">
-        <div class="card-body">
-            <h5 class="mb-4">Recent Repairs</h5>
+    <div class="col-md-3">
+        <div class="card card-dashboard shadow bg-warning text-dark">
+            <div class="card-body">
+                <h6>Devices in Repair</h6>
+                <h3>@Model.DevicesInRepair</h3>
+                <i class="fa-solid fa-screwdriver-wrench fa-2x float-end"></i>
+            </div>
+        </div>
+    </div>
 
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="table-light">
+    <div class="col-md-3">
+        <div class="card card-dashboard shadow bg-success text-white">
+            <div class="card-body">
+                <h6>Completed Repairs</h6>
+                <h3>@Model.CompletedRepairs</h3>
+                <i class="fa-solid fa-check-circle fa-2x float-end"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-dashboard shadow bg-danger text-white">
+            <div class="card-body">
+                <h6>Total Revenue</h6>
+                <h3>Rs. @Model.TotalRevenue</h3>
+                <i class="fa-solid fa-money-bill-wave fa-2x float-end"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ACTIVE USERS TABLE -->
+<div class="card shadow border-0 rounded-4 mb-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+            <h5 class="fw-bold">
+                <i class="fa-solid fa-user-check"></i> Active Users
+            </h5>
+            <a asp-action="Create" class="btn btn-success">
+                <i class="fa-solid fa-plus"></i> Add User
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th width="250">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in ViewBag.ActiveUsers)
+                    {
                         <tr>
-                            <th>Customer</th>
-                            <th>Device</th>
-                            <th>Issue</th>
-                            <th>Status</th>
-                            <th>Cost</th>
+                            <td>@user.UserName</td>
+                            <td>@user.Phone</td>
+                            <td>
+                                <span class="badge bg-success">@user.Status</span>
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-primary">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                                <a asp-action="ViewUser" asp-route-id="@user.Id" class="btn btn-sm btn-info text-white">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a asp-action="Deactivate" asp-route-id="@user.Id" class="btn btn-sm btn-warning">
+                                    <i class="fa-solid fa-ban"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Delete this user?');">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var repair in Model.RecentRepairs)
-                        {
-                            <tr>
-                                <td>@repair.CustomerName</td>
-                                <td>@repair.DeviceModel</td>
-                                <td>@repair.Issue</td>
-                                <td>
-                                    <span class="badge bg-secondary">@repair.Status</span>
-                                </td>
-                                <td>Rs. @repair.Cost</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
+<!-- INACTIVE USERS TABLE -->
+<div class="card shadow border-0 rounded-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+            <h5 class="fw-bold">
+                <i class="fa-solid fa-user-slash"></i> Inactive Users
+            </h5>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th width="250">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in ViewBag.InactiveUsers)
+                    {
+                        <tr class="table-secondary">
+                            <td>@user.UserName</td>
+                            <td>@user.Phone</td>
+                            <td>
+                                <span class="badge bg-danger">@user.Status</span>
+                            </td>
+                            <td>
+                                <a asp-action="Activate" asp-route-id="@user.Id" class="btn btn-sm btn-success">
+                                    <i class="fa-solid fa-check"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Delete this user?');">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
