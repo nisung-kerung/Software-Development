@@ -1,0 +1,66 @@
+﻿@model Asp.Net_MVC.ViewModel.AddUserVm
+
+@{
+    ViewData["Title"] = "Add User";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>Add User</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post" asp-action="Create">
+
+                <div class="mb-3">
+                    <label class="form-label">User Name <span class="text-danger">*</span></label>
+                    <input asp-for="Name" class="form-control" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <input asp-for="Address" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password <span class="text-danger">*</span></label>
+                    <input asp-for="Pass" type="password" class="form-control" required />
+                    <span asp-validation-for="Pass" class="text-danger"></span>
+                </div>
+
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-success"
+                            onclick="return confirm('Are you sure you want to add this user?')">
+                        Add User
+                    </button>
+
+                    <button type="reset"
+                            class="btn btn-secondary">
+                        Reset
+                    </button>
+
+                    <a asp-action="UserReport"
+                       class="btn btn-primary">
+                        View Users
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,300 @@
+﻿@* @using Asp.Net_MVC.Enums *@
+@* @model List<Asp.Net_MVC.Models.UserModel> *@
+@* *@
+@* @{ *@
+@*     ViewData["Title"] = "User Report"; *@
+@* } *@
+@* *@
+@* <div class="container mt-5"> *@
+@* *@
+@*     <div class="card shadow-sm"> *@
+@* *@
+@*         <div class="card-header bg-dark text-white d-flex justify-content-between"> *@
+@* *@
+@*             <h4>User Report</h4> *@
+@* *@
+@*             <a asp-action="Index" *@
+@*                class="btn btn-success btn-sm"> *@
+@*                 Add New User *@
+@*             </a> *@
+@* *@
+@*         </div> *@
+@* *@
+@*         <div class="card-body"> *@
+@* *@
+@*             <table class="table table-bordered table-striped table-hover"> *@
+@* *@
+@*                 <thead class="table-dark"> *@
+@*                 <tr> *@
+@*                     <th>User Name</th> *@
+@*                     <th>Email</th> *@
+@*                     <th>Address</th> *@
+@*                     <th>Status</th> *@
+@*                     <th width="180">Action</th> *@
+@*                 </tr> *@
+@*                 </thead> *@
+@*                 @{ *@
+@*                     var activeUsers = Model.Where(x => x.Status == (int)StatusEnum.Active); *@
+@*                     var inactiveUsers = Model.Where(x => x.Status == (int)StatusEnum.Inactive); *@
+@*                 } *@
+@* *@
+@*                 <tbody> *@
+@* *@
+@*                 <!-- ACTIVE USERS --> *@
+@*                 @foreach (var u in activeUsers) *@
+@*                 { *@
+@*                     <tr> *@
+@* *@
+@*                         <td>@u.UserName</td> *@
+@*                         <td>@u.Email</td> *@
+@*                         <td>@u.Address</td> *@
+@* *@
+@*                         <td> *@
+@*                             <span class="badge bg-success"> *@
+@*                                 @Enum.GetName(typeof(StatusEnum), u.Status) *@
+@*                             </span> *@
+@*                         </td> *@
+@* *@
+@*                         <td> *@
+@* *@
+@*                             <a asp-action="Edit" *@
+@*                                asp-route-id="@u.Id" *@
+@*                                class="btn btn-primary btn-sm"> *@
+@*                                 Edit *@
+@*                             </a> *@
+@* *@
+@*                             <a asp-action="Delete" *@
+@*                                asp-route-id="@u.Id" *@
+@*                                class="btn btn-danger btn-sm" *@
+@*                                onclick="return confirm('Deactivate this user?')"> *@
+@*                                 Deactivate *@
+@*                             </a> *@
+@* *@
+@*                         </td> *@
+@* *@
+@*                     </tr> *@
+@*                 } *@
+@* *@
+@*                 <!-- INACTIVE USERS --> *@
+@*                 @foreach (var u in inactiveUsers) *@
+@*                 { *@
+@*                     <tr class="table-secondary"> *@
+@* *@
+@*                         <td>@u.UserName</td> *@
+@*                         <td>@u.Email</td> *@
+@*                         <td>@u.Address</td> *@
+@* *@
+@*                         <td> *@
+@*                             <span class="badge bg-danger"> *@
+@*                                 @Enum.GetName(typeof(StatusEnum), u.Status) *@
+@*                             </span> *@
+@*                         </td> *@
+@* *@
+@*                         <td> *@
+@* *@
+@*                             <a asp-action="Activate" *@
+@*                                asp-route-id="@u.Id" *@
+@*                                class="btn btn-success btn-sm" *@
+@*                                onclick="return confirm('Activate this user?')"> *@
+@*                                 Activate *@
+@*                             </a> *@
+@* *@
+@*                         </td> *@
+@* *@
+@*                     </tr> *@
+@*                 } *@
+@* *@
+@*                 </tbody> *@
+@*                 $1$ <tbody> #1# *@
+@*                 $1$ #1# *@
+@*                 $1$ @foreach (var u in Model) #1# *@
+@*                 $1$ { #1# *@
+@*                 $1$     <tr> #1# *@
+@*                 $1$ #1# *@
+@*                 $1$         <td>@u.UserName</td> #1# *@
+@*                 $1$         <td>@u.Email</td> #1# *@
+@*                 $1$         <td>@u.Address</td> #1# *@
+@*                 $1$ #1# *@
+@*                 $1$         @if (u.Status == (int)StatusEnum.Active) #1# *@
+@*                 $1$         { #1# *@
+@*                 $1$             <td> #1# *@
+@*                 $1$                 <span class="badge bg-success"> #1# *@
+@*                 $1$                     @Enum.GetName(typeof(StatusEnum), u.Status) #1# *@
+@*                 $1$                 </span> #1# *@
+@*                 $1$             </td> #1# *@
+@*                 $1$         } #1# *@
+@*                 $1$         else #1# *@
+@*                 $1$         { #1# *@
+@*                 $1$             <td> #1# *@
+@*                 $1$                 <span class="badge bg-danger"> #1# *@
+@*                 $1$                     @Enum.GetName(typeof(StatusEnum), u.Status) #1# *@
+@*                 $1$                 </span> #1# *@
+@*                 $1$             </td> #1# *@
+@*                 $1$         } #1# *@
+@*                 $1$ #1# *@
+@*                 $1$         <td> #1# *@
+@*                 $1$ #1# *@
+@*                 $1$         @if (u.Status == (int)StatusEnum.Active) #1# *@
+@*                 $1$         { #1# *@
+@*                 $1$ #1# *@
+@*                 $1$             <a asp-action="Edit" #1# *@
+@*                 $1$                asp-route-id="@u.Id" #1# *@
+@*                 $1$                class="btn btn-primary btn-sm"> #1# *@
+@*                 $1$                 Edit #1# *@
+@*                 $1$             </a> #1# *@
+@*                 $1$ #1# *@
+@*                 $1$             <a asp-action="Delete" #1# *@
+@*                 $1$                asp-route-id="@u.Id" #1# *@
+@*                 $1$                class="btn btn-danger btn-sm" #1# *@
+@*                 $1$                onclick="return confirm('Deactivate this user?')"> #1# *@
+@*                 $1$                 Deactivate #1# *@
+@*                 $1$             </a> #1# *@
+@*                 $1$ #1# *@
+@*                 $1$         } #1# *@
+@*                 $1$         else #1# *@
+@*                 $1$         { #1# *@
+@*                 $1$             <button class="btn btn-secondary btn-sm" disabled> #1# *@
+@*                 $1$                 No Action #1# *@
+@*                 $1$             </button> #1# *@
+@*                 $1$         } #1# *@
+@*                 $1$ #1# *@
+@*                 $1$         </td> #1# *@
+@*                 $1$ #1# *@
+@*                 $1$     </tr> #1# *@
+@*                 $1$ } #1# *@
+@*                 $1$ #1# *@
+@*                 $1$ </tbody> #1# *@
+@* *@
+@*             </table> *@
+@* *@
+@*         </div> *@
+@* *@
+@*     </div> *@
+@* *@
+@* </div> *@
+
+@using Asp.Net_MVC.Enums
+@model List<Asp.Net_MVC.Models.UserModel>
+
+@{
+    ViewData["Title"] = "User Report";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-dark text-white d-flex justify-content-between">
+
+            <h4>User Report</h4>
+
+            <a asp-action="Index"
+               class="btn btn-success btn-sm">
+                Add New User
+            </a>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-striped table-hover">
+
+                <thead class="table-dark">
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th width="250">Action</th>
+                </tr>
+                </thead>
+
+                @{
+                    var activeUsers = Model.Where(x => x.Status == (int)StatusEnum.Active);
+                    var inactiveUsers = Model.Where(x => x.Status == (int)StatusEnum.Inactive);
+                }
+
+                <tbody>
+
+                <!-- ACTIVE USERS -->
+                @foreach (var u in activeUsers)
+                {
+                    <tr>
+                        <td>@u.UserName</td>
+                        <td>@u.Email</td>
+                        <td>@u.Address</td>
+
+                        <td>
+                            <span class="badge bg-success">
+                                @Enum.GetName(typeof(StatusEnum), u.Status)
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@u.Id"
+                               class="btn btn-primary btn-sm">
+                                Edit
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@u.Id"
+                               class="btn btn-warning btn-sm"
+                               onclick="return confirm('Deactivate this user?')">
+                                Deactivate
+                            </a>
+
+                            <a asp-action="DeletePermanent"
+                               asp-route-id="@u.Id"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this user permanently?')">
+                                Delete
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+
+                <!-- INACTIVE USERS -->
+                @foreach (var u in inactiveUsers)
+                {
+                    <tr class="table-secondary">
+                        <td>@u.UserName</td>
+                        <td>@u.Email</td>
+                        <td>@u.Address</td>
+
+                        <td>
+                            <span class="badge bg-danger">
+                                @Enum.GetName(typeof(StatusEnum), u.Status)
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <a asp-action="Activate"
+                               asp-route-id="@u.Id"
+                               class="btn btn-success btn-sm"
+                               onclick="return confirm('Activate this user?')">
+                                Activate
+                            </a>
+
+                            <a asp-action="DeletePermanent"
+                               asp-route-id="@u.Id"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this user permanently?')">
+                                Delete
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

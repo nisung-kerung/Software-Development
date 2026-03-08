@@ -1,19 +1,21 @@
-﻿using Asp.Net_MVC.Models.Dashboard;
+﻿using Asp.Net_MVC.Models;
+using Asp.Net_MVC.ViewModel;
 
-namespace Asp.Net_MVC.Services.Interface
+namespace Asp.Net_MVC.Services.Interface;
+
+public interface IUserService
 {
-    public interface IUserService
-    {
-        List<UserModel> GetAllUsers();
-        List<UserModel> GetActiveUsers();
-        List<UserModel> GetInactiveUsers();
-        UserModel GetById(Guid id);
+    Task CreateUserAsync(AddUserVm vm);
 
-        void Create(UserModel user);
-        void Update(UserModel user);
-        void Delete(Guid id);
+    Task<List<UserModel>> GetUsersAsync();
 
-        void Activate(Guid id);
-        void Deactivate(Guid id);
-    }
+    Task<EditUserVm?> GetUserByIdAsync(int id);
+
+    Task EditUserAsync(EditUserVm vm);
+
+    Task RemoveUserAsync(int id);
+    
+    Task ActivateUserAsync(int id);
+    Task DeleteUserPermanentAsync(int id);
+    
 }

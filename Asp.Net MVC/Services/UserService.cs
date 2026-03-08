@@ -1,63 +1,112 @@
-﻿using Asp.Net_MVC.Models.Dashboard;
+﻿using Asp.Net_MVC.Entities;
+using Asp.Net_MVC.Enums;
+using Asp.Net_MVC.Models;
+using Asp.Net_MVC.Repository.Interface;
 using Asp.Net_MVC.Services.Interface;
+using Asp.Net_MVC.ViewModel;
 
-namespace Asp.Net_MVC.Services
+namespace Asp.Net_MVC.Services;
+
+public class UserService : IUserService
 {
-    public class UserService : IUserService
+    private readonly IUserRepo _repo;
+
+    public UserService(IUserRepo repo)
     {
-        private static List<UserModel> _list = new List<UserModel>
+        _repo = repo;
+    }
+
+    public async Task CreateUserAsync(AddUserVm vm)
+    {
+        var user = new User
         {
-            new UserModel { Id = Guid.NewGuid(), UserName = "Admin", Phone="9800000000", Status = UserStatus.Active },
-            new UserModel { Id = Guid.NewGuid(), UserName = "Technician", Phone="9811111111", Status = UserStatus.Active },
-            new UserModel { Id = Guid.NewGuid(), UserName = "Old Staff", Phone="9822222222", Status = UserStatus.Inactive }
+            UserName = vm.Name,
+            Email = vm.Email,
+            Address = vm.Address,
+            Password = vm.Pass
         };
 
-        public List<UserModel> GetAllUsers() => _list;
+        await _repo.Create(user);
+        await _repo.Save();
+    }
 
-        public List<UserModel> GetActiveUsers() =>
-            _list.Where(x => x.Status == UserStatus.Active).ToList();
+    public async Task<List<UserModel>> GetUsersAsync()
+    {
+        var users = await _repo.GetAll();
 
-        public List<UserModel> GetInactiveUsers() =>
-            _list.Where(x => x.Status == UserStatus.Inactive).ToList();
-
-        public UserModel GetById(Guid id) =>
-            _list.FirstOrDefault(x => x.Id == id);
-
-        public void Create(UserModel user)
+        return users.Select(x => new UserModel
         {
-            user.Id = Guid.NewGuid();
-            _list.Add(user);
-        }
+            Id = x.Id,
+            UserName = x.UserName,
+            Email = x.Email,
+            Address = x.Address,
+            Status = x.Status
+        }).ToList();
+    }
 
-        public void Update(UserModel user)
+    public async Task<EditUserVm?> GetUserByIdAsync(int id)
+    {
+        var user = await _repo.GetById(id);
+
+        if (user == null)
+            return null;
+
+        return new EditUserVm
         {
-            var existing = GetById(user.Id);
-            if (existing == null) return;
+            UserId = user.Id,
+            UserName = user.UserName,
+            Email = user.Email,
+            Address = user.Address
+        };
+    }
 
-            existing.UserName = user.UserName;
-            existing.Phone = user.Phone;
-            existing.Status = user.Status;
-        }
+    public async Task EditUserAsync(EditUserVm vm)
+    {
+        var user = await _repo.GetById(vm.UserId);
 
-        public void Delete(Guid id)
-        {
-            var user = GetById(id);
-            if (user != null)
-                _list.Remove(user);
-        }
+        if (user == null)
+            throw new Exception("User not found");
 
-        public void Activate(Guid id)
-        {
-            var user = GetById(id);
-            if (user != null)
-                user.Status = UserStatus.Active;
-        }
+        user.UserName = vm.UserName;
+        user.Email = vm.Email;
+        user.Address = vm.Address;
 
-        public void Deactivate(Guid id)
-        {
-            var user = GetById(id);
-            if (user != null)
-                user.Status = UserStatus.Inactive;
-        }
+        await _repo.Update(user);
+        await _repo.Save();
+    }
+
+    public async Task RemoveUserAsync(int id)
+    {
+        var user = await _repo.GetById(id);
+
+        if (user == null)
+            throw new Exception("User not found");
+
+        user.Status = (int)StatusEnum.Inactive;
+
+        await _repo.Update(user);
+        await _repo.Save();
+    }
+    
+    public async Task ActivateUserAsync(int id)
+    {
+        var user = await _repo.GetById(id);
+
+        if (user == null)
+            throw new Exception("User not found");
+
+        user.Status = (int)StatusEnum.Active;
+
+        await _repo.Update(user);
+        await _repo.Save();
+    }
+    public async Task DeleteUserPermanentAsync(int id)
+    {
+        var user = await _repo.GetById(id);
+
+        if (user == null)
+            throw new Exception("User not found");
+
+        await _repo.DeletePermanent(user);
     }
 }
