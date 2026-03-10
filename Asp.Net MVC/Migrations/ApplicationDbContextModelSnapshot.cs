@@ -24,16 +24,24 @@ namespace Asp.Net_MVC.Migrations
 
             modelBuilder.Entity("Asp.Net_MVC.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
+                    b.Property<string>("ContactNo")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
@@ -43,19 +51,20 @@ namespace Asp.Net_MVC.Migrations
                     b.Property<DateTime>("RecDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<char>("RecStatus")
-                        .HasColumnType("character(1)");
+                    b.Property<string>("RecStatus")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("users", "public");
+                    b.ToTable("users");
                 });
 #pragma warning restore 612, 618
         }

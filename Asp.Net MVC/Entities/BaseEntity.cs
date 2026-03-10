@@ -6,11 +6,11 @@ namespace Asp.Net_MVC.Entities;
 public class BaseEntity
 {
     [Key]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     public DateTime RecDate { get; set; } = DateTime.UtcNow;
 
-    public int Status { get; set; } = (int)StatusEnum.Active;
+    public StatusEnum Status { get; set; } = StatusEnum.Active;
 
-    public char RecStatus { get; set; } = (char)RecStatusEnum.Active;
+    public RecStatusEnum RecStatus { get; set; } = RecStatusEnum.Active;
 }

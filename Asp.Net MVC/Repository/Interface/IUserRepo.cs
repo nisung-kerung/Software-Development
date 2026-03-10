@@ -4,13 +4,13 @@ namespace Asp.Net_MVC.Repository.Interface;
 
 public interface IUserRepo
 {
-    Task Create(User user);
+    void Create(User user);
 
-    Task<List<User>> GetAll();
+    void Update(User user);
 
-    Task<User?> GetById(int id);
+    void Remove(User user);
 
-    Task Update(User user);
-    Task DeletePermanent(User user);
-    Task Save();
+    IQueryable<User> GetQueryable();
+
+    void Commit();
 }

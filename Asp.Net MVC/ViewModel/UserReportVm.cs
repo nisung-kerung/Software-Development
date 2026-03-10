@@ -1,11 +1,13 @@
 ﻿namespace Asp.Net_MVC.ViewModel;
 
-public class EditUserVm
+public class UserReportVm
 {
-    public long UserId { get; set; }
-    public string UserName { get; set; }
+    public long Id { get; set; }
+    public string Username { get; set; }
     public string Email { get; set; }
     public string? Address { get; set; }
+    public string Status { get; set; }
     public string Name { get; set; }
     public string? ContactNo { get; set; }
+    public bool IsActive { get; set; }
 }

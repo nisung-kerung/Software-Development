@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Dotnet_Mvc</title>
+    <title>@ViewData["Title"] - Asp.Net_MVC</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
@@ -17,7 +17,7 @@
         <div class="container">
 
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                Dotnet_Mvc
+                Asp.Net_MVC
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -35,27 +35,15 @@
                 <ul class="navbar-nav flex-grow-1">
 
                     <li class="nav-item">
-                        <a class="nav-link text-dark"
-                           asp-controller="Home"
-                           asp-action="Index">
-                            <i class="fas fa-home"></i> Home
-                        </a>
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-dark"
-                           asp-controller="User"
-                           asp-action="Index">
-                            <i class="fas fa-user-plus"></i> Add User
-                        </a>
+                        <a class="nav-link text-dark" asp-controller="User" asp-action="Create"><i class="fas fa-user-plus"></i> Add User</a>
                     </li>
-
+                    <a class="nav-link text-dark" asp-controller="User" asp-action="Index"><i class="fas fa-user-plus"></i>User Report</a>
                     <li class="nav-item">
-                        <a class="nav-link text-dark"
-                           asp-controller="User"
-                           asp-action="UserReport">
-                            <i class="fas fa-table"></i> User Report
-                        </a>
+                        
                     </li>
 
                 </ul>
@@ -74,7 +62,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2026 - Dotnet_Mvc -
+        &copy; 2026 - Asp.Net_MVC -
         <a asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>

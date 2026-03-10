@@ -1,21 +1,19 @@
-﻿using Asp.Net_MVC.Models;
-using Asp.Net_MVC.ViewModel;
+﻿using Asp.Net_MVC.Dtos;
+using Asp.Net_MVC.Entities;
 
 namespace Asp.Net_MVC.Services.Interface;
 
 public interface IUserService
 {
-    Task CreateUserAsync(AddUserVm vm);
+    void AddUser(NewUserDto dto);
 
-    Task<List<UserModel>> GetUsersAsync();
+    void EditUser(User user, UserEditDto dto);
 
-    Task<EditUserVm?> GetUserByIdAsync(int id);
+    void RemoveUser(User user);
+    void ActivateUser(User user);
 
-    Task EditUserAsync(EditUserVm vm);
+    void PermanentDelete(User user);
 
-    Task RemoveUserAsync(int id);
-    
-    Task ActivateUserAsync(int id);
-    Task DeleteUserPermanentAsync(int id);
-    
+
+    User GetUser(string username, string password);
 }
