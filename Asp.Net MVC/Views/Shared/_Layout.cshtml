@@ -1,89 +1,379 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Asp.Net_MVC</title>
+﻿@* Project: Asp.Net_MVC
+   Description: AdminLTE 4 integrated layout (Professional Version) *@
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewData["Title"] - Dashboard - User Management System</title>
+
+    <!--begin::Accessibility Meta Tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+    <!--end::Accessibility Meta Tags-->
+
+    <!--begin::Primary Meta Tags-->
+    <meta name="title" content="Asp.Net_MVC | Dashboard" />
+    <meta name="author" content="YourName" />
+    <meta name="description" content="AdminLTE integrated ASP.NET MVC dashboard with user management features." />
+    <!--end::Primary Meta Tags-->
+
+    <!--begin::Fonts-->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@@fontsource/source-sans-3@5.0.12/index.css"
+          crossorigin="anonymous"
+          media="print"
+          onload="this.media='all'" />
+    <!--end::Fonts-->
+
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css"
+          crossorigin="anonymous" />
+    <!--end::Third Party Plugin-->
+
+    <!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+          crossorigin="anonymous" />
+    <!--end::Third Party Plugin-->
+
+    <!--begin::AdminLTE CSS-->
+    <link rel="stylesheet" href="~/css/adminlte.css" />
+    <!--end::AdminLTE CSS-->
+
     <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 
-<body>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
 
-<header>
-    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
+    <div class="app-wrapper">
 
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                Asp.Net_MVC
-            </a>
+        <!-- =========================
+                NAVBAR
+        ========================== -->
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
+        <nav class="app-header navbar navbar-expand bg-body shadow-sm">
 
-                <span class="navbar-toggler-icon"></span>
+            <div class="container-fluid">
 
-            </button>
-
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-
-                <ul class="navbar-nav flex-grow-1">
+                <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="User" asp-action="Create"><i class="fas fa-user-plus"></i> Add User</a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="User" asp-action="Index"><i class="fas fa-user-plus"></i>User Report</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="User" asp-action="AssignRole"><i class="fas fa-user-plus"></i>Assign Role</a>
-                    </li>
-                    
-                </ul>
-                <!-- Right menu item (Logout) -->
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" asp-controller="Auth" asp-action="Logout">
-                            <i class="fas fa-sign-out-alt"></i> Logout
+                        <a class="nav-link" data-lte-toggle="sidebar" href="#">
+                            <i class="bi bi-list"></i>
                         </a>
                     </li>
+
+                    <li class="nav-item d-none d-md-inline-block">
+                        <a asp-controller="Home" asp-action="Index" class="nav-link">
+                            Dashboard
+                        </a>
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+
+                    <!-- Notifications -->
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge text-bg-danger">3</span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+
+                            <span class="dropdown-item dropdown-header">
+                                3 Notifications
+                            </span>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a href="#" class="dropdown-item">
+                                <i class="bi bi-person-plus text-primary"></i>
+                                New user registered
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a href="#" class="dropdown-item">
+                                <i class="bi bi-file-earmark text-success"></i>
+                                New report generated
+                            </a>
+
+                        </div>
+                    </li>
+
+                    <!-- Profile -->
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end">
+
+                            <a href="#" class="dropdown-item">
+                                <i class="bi bi-person"></i> Profile
+                            </a>
+
+                            <a href="#" class="dropdown-item">
+                                <i class="bi bi-gear"></i> Settings
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a asp-controller="Auth"
+                               asp-action="Logout"
+                               class="dropdown-item text-danger">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </a>
+
+                        </div>
+
+                    </li>
+
                 </ul>
 
             </div>
+        </nav>
 
-        </div>
-    </nav>
-</header>
 
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
+        <!-- =========================
+                SIDEBAR
+        =========================== -->
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2026 - Asp.Net_MVC -
-        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+
+            <div class="sidebar-brand">
+                
+                <a asp-controller="Home" asp-action="Index" class="brand-link">
+
+                    <i class="bi bi-people-fill brand-image opacity-75 shadow"></i>
+
+                    <span class="brand-text fw-light">
+                        User Management System
+                    </span>
+
+                </a>
+
+            </div>
+
+            <div class="sidebar-wrapper">
+
+                <nav class="mt-2">
+
+                    <ul class="nav sidebar-menu flex-column"
+                        data-lte-toggle="treeview">
+
+                        <!-- Dashboard -->
+
+                        <li class="nav-item">
+
+                            <a asp-controller="Home"
+                               asp-action="Index"
+                               class="nav-link active">
+
+                                <i class="nav-icon bi bi-speedometer2"></i>
+
+                                <p>Dashboard</p>
+
+                            </a>
+
+                        </li>
+
+                        <!-- User Management -->
+
+                        <li class="nav-header">
+                            USER MANAGEMENT
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a asp-controller="User"
+                               asp-action="Create"
+                               class="nav-link">
+
+                                <i class="nav-icon bi bi-person-plus"></i>
+
+                                <p>Add User</p>
+
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a asp-controller="User"
+                               asp-action="Index"
+                               class="nav-link">
+
+                                <i class="nav-icon bi bi-people"></i>
+
+                                <p>User Report</p>
+
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a asp-controller="User"
+                               asp-action="AssignRole"
+                               class="nav-link">
+
+                                <i class="nav-icon bi bi-person-badge"></i>
+
+                                <p>Assign Role</p>
+
+                            </a>
+
+                        </li>
+
+                        <!-- Authentication -->
+
+                        <li class="nav-header">
+                            AUTHENTICATION
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a asp-controller="Auth"
+                               asp-action="Login"
+                               class="nav-link">
+
+                                <i class="nav-icon bi bi-box-arrow-in-right"></i>
+
+                                <p>Login</p>
+
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a asp-controller="Auth"
+                               asp-action="AccessDenied"
+                               class="nav-link">
+
+                                <i class="nav-icon bi bi-lock-fill"></i>
+
+                                <p>Access Denied</p>
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+                MAIN CONTENT
+        =========================== -->
+
+        <main class="app-main">
+
+            <div class="app-content-header">
+
+                <div class="container-fluid">
+
+                    @* <div class="row mb-2"> *@
+                    @* *@
+                    @*     <div class="col-sm-6"> *@
+                    @* *@
+                    @*         <h3 class="m-0"> *@
+                    @*             @ViewData["Title"] *@
+                    @*         </h3> *@
+                    @* *@
+                    @*     </div> *@
+                    @* *@
+                    @*     <div class="col-sm-6"> *@
+                    @* *@
+                    @*         <ol class="breadcrumb float-sm-end"> *@
+                    @* *@
+                    @*             <li class="breadcrumb-item"> *@
+                    @*                 <a asp-controller="Home" *@
+                    @*                    asp-action="Index">Home</a> *@
+                    @*             </li> *@
+                    @* *@
+                    @*             <li class="breadcrumb-item active"> *@
+                    @*                 @ViewData["Title"] *@
+                    @*             </li> *@
+                    @* *@
+                    @*         </ol> *@
+                    @* *@
+                    @*     </div> *@
+                    @* *@
+                    @* </div> *@
+
+                    @RenderBody()
+
+                </div>
+
+            </div>
+
+        </main>
+
+
+        <!-- =========================
+                FOOTER
+        =========================== -->
+
+        <footer class="app-footer">
+
+            <div class="float-end d-none d-sm-inline">
+                Version 1.0
+            </div>
+
+            <strong>
+                © 2024 - 2026
+                <a href="https://adminlte.io"
+                   class="text-decoration-none">
+                    AdminLTE
+                </a>
+            </strong>
+
+            | User Management System built with ASP.NET Core MVC
+
+        </footer>
+
     </div>
-</footer>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/lib/fontawesome/js/all.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
 
-@await RenderSectionAsync("Scripts", required: false)
+    <!-- =========================
+            SCRIPTS
+    =========================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
+
+    <script src="~/js/adminlte.js"></script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
+
 </html>
