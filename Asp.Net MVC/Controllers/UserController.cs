@@ -14,11 +14,12 @@ public class UserController : Controller
 {
     private readonly IUserService _userService;
     private readonly IUserRepo _userRepo;
-
-    public UserController(IUserService userService, IUserRepo userRepo)
+    private readonly IRoleRepo _roleRepo;
+    public UserController(IUserService userService, IUserRepo userRepo, IRoleRepo roleRepo)
     {
         _userService = userService;
         _userRepo = userRepo;
+        _roleRepo = roleRepo;
     }
     [Authorize]
     public async Task<IActionResult> Index()
@@ -122,6 +123,7 @@ public class UserController : Controller
 
         return RedirectToAction("Index");
     }
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Activate(long id)
     {
         var user = await _userRepo.GetQueryable()
@@ -134,6 +136,7 @@ public class UserController : Controller
 
         return RedirectToAction("Index");
     }
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> PermanentDelete(long id)
     {
         var user = await _userRepo.GetQueryable()
@@ -143,6 +146,27 @@ public class UserController : Controller
             throw new Exception("User not found");
 
         _userService.PermanentDelete(user);
+
+        return RedirectToAction("Index");
+    }
+    
+    // public IActionResult AssignRole()
+    // {
+    //     return View();
+    // }
+    // [Authorize(Roles = "Admin")]
+    public IActionResult AssignRole()
+    {
+        ViewBag.Users = _userRepo.GetQueryable().ToList();
+        ViewBag.Roles = _roleRepo.GetQueryable().ToList();
+
+        return View();
+    }
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public IActionResult AssignRole(RoleAssignVm vm)
+    {
+        _userService.AssignRole(vm.UserId, vm.RoleId);
 
         return RedirectToAction("Index");
     }

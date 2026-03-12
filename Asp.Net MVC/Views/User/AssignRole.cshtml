@@ -1,0 +1,67 @@
+﻿@model Asp.Net_MVC.ViewModel.RoleAssignVm
+
+@{
+    ViewData["Title"] = "Assign Role";
+}
+
+<form method="post">
+
+    <div class="col-4">
+
+        <div class="card">
+
+            <div class="card-header">
+                Assign Role
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <label>User</label>
+
+                    <select asp-for="UserId" class="form-control">
+
+                        <option value="">Select User</option>
+
+                        @foreach(var u in ViewBag.Users)
+                        {
+                            <option value="@u.Id">@u.Username</option>
+                        }
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Role</label>
+
+                    <select asp-for="RoleId" class="form-control">
+
+                        <option value="">Select Role</option>
+
+                        @foreach(var r in ViewBag.Roles)
+                        {
+                            <option value="@r.Id">@r.Name</option>
+                        }
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+
+                <button class="btn btn-primary">
+                    Assign Role
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>

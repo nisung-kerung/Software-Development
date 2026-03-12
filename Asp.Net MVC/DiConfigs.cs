@@ -12,5 +12,8 @@ public static class DiConfigs
     {
         services.AddScoped<IUserRepo, UserRepo>();
         services.AddScoped<IUserService, UserService>();
+        
+        services.AddScoped<IRoleRepo, RoleRepo>();
+        services.AddScoped<IUserRoleRepo, UserRoleRepo>();
     }
 }

@@ -27,12 +27,18 @@ public class AuthController : Controller
         try
         {
             var user = _userService.GetUser(username, password);
-
+            var roles = user.UserRoles.Select(x => x.Role.Name).ToList();
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim("UserId", user.Id.ToString())
+                new Claim("UserId", user.Id.ToString()),
+                // new Claim(ClaimTypes.Role, "Admin"),
+
             };
+            foreach(var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var identity = new ClaimsIdentity(
                 claims,
@@ -61,5 +67,10 @@ public class AuthController : Controller
         );
 
         return RedirectToAction("Login");
+    }
+    [HttpGet]
+    public IActionResult AccessDenied()
+    {
+        return View();
     }
 }

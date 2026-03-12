@@ -16,4 +16,6 @@ public class User : BaseEntity
     public string Password { get; set; }
 
     public string? Address { get; set; }
+    
+    public ICollection<UserRole> UserRoles { get; set; }
 }
