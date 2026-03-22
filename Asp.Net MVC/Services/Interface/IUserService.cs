@@ -16,6 +16,7 @@ public interface IUserService
 
 
     User GetUser(string username, string password);
+   
     
     void AssignRole(long userId, long roleId);
 }

@@ -110,7 +110,7 @@ public class UserController : Controller
 
         return RedirectToAction("Index");
     }
-
+    [Authorize(Roles = "Admin, Manager")]
     public async Task<IActionResult> Delete(long id)
     {
         var user = await _userRepo.GetQueryable()
@@ -154,7 +154,7 @@ public class UserController : Controller
     // {
     //     return View();
     // }
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public IActionResult AssignRole()
     {
         ViewBag.Users = _userRepo.GetQueryable().ToList();

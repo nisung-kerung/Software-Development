@@ -11,6 +11,12 @@ public interface IUserRepo
     void Remove(User user);
 
     IQueryable<User> GetQueryable();
+    
+    int GetTotalUsers();
+
+    int GetActiveUsers();
+
+    int GetInactiveUsers();
 
     void Commit();
 }

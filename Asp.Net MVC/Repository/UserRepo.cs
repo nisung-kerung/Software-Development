@@ -1,5 +1,6 @@
 ﻿using Asp.Net_MVC.Data;
 using Asp.Net_MVC.Entities;
+using Asp.Net_MVC.Enums;
 using Asp.Net_MVC.Repository.Interface;
 
 namespace Asp.Net_MVC.Repository;
@@ -32,7 +33,21 @@ public class UserRepo : IUserRepo
     {
         return _context.Users.AsQueryable();
     }
+    public int GetTotalUsers()
+    {
+        return _context.Users.Count();
+    }
 
+    public int GetActiveUsers()
+    {
+        return _context.Users.Count(x => x.Status == StatusEnum.Active);
+    }
+
+    public int GetInactiveUsers()
+    {
+        return _context.Users.Count(x => x.Status == StatusEnum.Inactive);
+    }
+    
     public void Commit()
     {
         _context.SaveChanges();
